@@ -1,6 +1,6 @@
 import { assert } from "chai";
 import { assertSubset } from "./test-utils.js";
-import { maggie, maggieCredentials, testUsers, testCandidates, Stockholm, testPlacemarks } from "./fixtures.js";
+import { Stockholm, testPlacemarks } from "./fixtures.js";
 import { db } from "../src/models/db.js";
 
 suite("Placemark mongo db test", () => {

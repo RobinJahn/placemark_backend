@@ -1,7 +1,7 @@
 import { Placemark } from "./placemark.js";
 
 export const placemarkMongoStore = {
-  async getAll() {
+  async getAllPlacemarks() {
     const placemarks = await Placemark.find().lean();
     return placemarks;
   },
@@ -29,7 +29,7 @@ export const placemarkMongoStore = {
     }
   },
 
-  async deleteAll() {
+  async deleteAllPlacemarks() {
     await Placemark.deleteMany({});
   },
 };

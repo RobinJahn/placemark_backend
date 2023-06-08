@@ -6,6 +6,7 @@ import Cookie from "@hapi/cookie";
 import dotenv from "dotenv";
 
 import { apiRoutes } from "./api-routes.js";
+import { db } from "./models/db.js";
 
 const result = dotenv.config();
 if (result.error) {
@@ -21,6 +22,8 @@ async function init() {
   await server.register(Inert);
   await server.register(Vision);
   await server.register(Cookie);
+
+  db.init("mongo");
 
   server.route(apiRoutes);
 

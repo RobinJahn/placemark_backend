@@ -26,7 +26,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Start server
+      - name: Start server with environment variables
+        env:
+          COOKIE_NAME: ${{ secrets.COOKIE_NAME }}
+          COOKIE_PASSWORD: ${{ secrets.COOKIE_PASSWORD }}
+          DB: ${{ secrets.DB }}
         run: npm run dev &
 
       - name: Run tests

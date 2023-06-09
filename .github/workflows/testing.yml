@@ -34,4 +34,8 @@ jobs:
         run: npm run dev &
 
       - name: Run tests
+        env:
+          COOKIE_NAME: ${{ secrets.COOKIE_NAME }}
+          COOKIE_PASSWORD: ${{ secrets.COOKIE_PASSWORD }}
+          DB: ${{ secrets.DB }}
         run: npm run test

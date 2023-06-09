@@ -1,7 +1,7 @@
 import { assert } from "chai";
-import { assertSubset } from "./test-utils.js";
-import { Stockholm, testPlacemarks } from "./fixtures.js";
-import { db } from "../src/models/db.js";
+import { assertSubset } from "../test-utils.js";
+import { Stockholm, testPlacemarks } from "../fixtures.js";
+import { db } from "../../src/models/db.js";
 
 suite("Placemark mongo db test", () => {
   suiteSetup(async () => {

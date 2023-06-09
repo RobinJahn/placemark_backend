@@ -1,8 +1,12 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
+import { createToken } from "./jwt-utils.js";
 
 export const userApi = {
   find: {
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const users = await db.userStore.getAllUsers();
@@ -14,6 +18,9 @@ export const userApi = {
   },
 
   findOne: {
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const user = await db.userStore.getUserById(request.params.id);
@@ -28,6 +35,7 @@ export const userApi = {
   },
 
   create: {
+    auth: false,
     handler: async function (request, h) {
       try {
         const user = await db.userStore.addUser(request.payload);
@@ -42,10 +50,32 @@ export const userApi = {
   },
 
   deleteAll: {
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         await db.userStore.deleteAllUsers();
         return h.response().code(204);
+      } catch (err) {
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+  },
+
+  authenticate: {
+    auth: false,
+    handler: async function (request, h) {
+      try {
+        const user = await db.userStore.getUserByEmail(request.payload.email);
+        if (!user) {
+          return Boom.unauthorized("User not found");
+        }
+        if (user.password !== request.payload.password) {
+          return Boom.unauthorized("Invalid password");
+        }
+        const token = createToken(user);
+        return h.response({ success: true, token: token, _id: user._id }).code(201);
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }

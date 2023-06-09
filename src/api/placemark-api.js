@@ -3,6 +3,9 @@ import { db } from "../models/db.js";
 
 export const placemarkApi = {
   find: {
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const placemarks = await db.placemarkStore.getAllPlacemarks();
@@ -14,6 +17,9 @@ export const placemarkApi = {
   },
 
   findOne: {
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
@@ -28,6 +34,9 @@ export const placemarkApi = {
   },
 
   create: {
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const placemark = await db.placemarkStore.addPlacemark(request.payload);
@@ -42,6 +51,9 @@ export const placemarkApi = {
   },
 
   deleteAll: {
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         await db.placemarkStore.deleteAllPlacemarks();

@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-export const IdSpec = Joi.alternatives().try(Joi.string(), Joi.object()).description("a valid ID");
+export const IdSpec = Joi.alternatives().try(Joi.string().example("64832868a4afc1d1b9c633d9"), Joi.object().example("64832868a4afc1d1b9c633d9")).description("a valid ID");
 
 export const UserCredentialsSpec = Joi.object()
   .keys({
@@ -25,5 +25,6 @@ export const JwtAuth = Joi.object()
   .keys({
     success: Joi.boolean().example("true").required(),
     token: Joi.string().example("eyJhbGciOiJND.g5YmJisIjoiaGYwNTNjAOhE.gCWGmY5-YigQw0DCBo").required(),
+    _id: IdSpec,
   })
   .label("JwtAuth");

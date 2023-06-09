@@ -35,6 +35,10 @@ suite("Placemark mongo db test", () => {
   test("create placemark", async () => {
     const returnedPlacemark = await db.placemarkStore.addPlacemark(Stockholm);
     assertSubset(Stockholm, returnedPlacemark);
+    if (returnedPlacemark === null) {
+      assert.fail("Placemark creation failed");
+      return;
+    }
     assert.isDefined(returnedPlacemark._id);
   });
 

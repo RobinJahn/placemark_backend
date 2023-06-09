@@ -6,7 +6,7 @@ on:
 
 jobs:
   test:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     environment: test-environment
 
     strategy:
@@ -25,6 +25,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Start server
+        run: npm run dev &
 
       - name: Run tests
         run: npm run test

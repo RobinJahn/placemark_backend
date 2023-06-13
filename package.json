@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "npx nodemon src/server.js  --ignore 'src/models/json/*.json'",
     "lint": "npx eslint . --ext .js",
-    "test": "npx mocha --ui tdd --timeout 10000 --exit test/**/*.js"
+    "test": "npx mocha --ui tdd --timeout 10000 --exit test/**/*.js",
+    "start_and_test": "start-server-and-test dev http://127.0.0.1:4000 test"
   },
   "author": "",
   "license": "ISC",
@@ -34,7 +35,8 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
     "nodemon": "^2.0.22",
-    "prettier": "^2.8.8"
+    "prettier": "^2.8.8",
+    "start-server-and-test": "^2.0.0"
   },
   "engines": {
     "node": ">=18.0.0"

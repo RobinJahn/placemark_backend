@@ -27,6 +27,7 @@ jobs:
           COOKIE_NAME: ${{ secrets.COOKIE_NAME }}
           COOKIE_PASSWORD: ${{ secrets.COOKIE_PASSWORD }}
           DB: ${{ secrets.DB }}
+          PORT: 4000
         run: npm run dev &
 
       - name: Wait for server to start

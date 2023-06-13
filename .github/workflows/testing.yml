@@ -9,10 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: test-environment
 
-    strategy:
-      matrix:
-        node-version: [ 18.x ]
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -20,7 +16,7 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '18.x'
           cache: 'npm'
 
       - name: Install dependencies
@@ -32,6 +28,9 @@ jobs:
           COOKIE_PASSWORD: ${{ secrets.COOKIE_PASSWORD }}
           DB: ${{ secrets.DB }}
         run: npm run dev &
+
+      - name: Wait for server to start
+        run: sleep 10s # Adjust the sleep duration as needed
 
       - name: Run tests
         env:

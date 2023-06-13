@@ -4,6 +4,11 @@ import { serviceUrl } from "./fixtures.js";
 export const placemarkService = {
   donationUrl: serviceUrl,
 
+  async callApi() {
+    const res = await axios.get(`${this.donationUrl}/api/apitest`);
+    return res.data;
+  },
+
   async createUser(user) {
     const res = await axios.post(`${this.donationUrl}/api/users`, user);
     return res.data;

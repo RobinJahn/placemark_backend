@@ -28,4 +28,4 @@ jobs:
           COOKIE_PASSWORD: ${{ secrets.COOKIE_PASSWORD }}
           DB: ${{ secrets.DB }}
           PORT: 4000
-        run: start_and_test
+        run: npm run start_and_test

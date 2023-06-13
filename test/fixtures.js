@@ -1,4 +1,4 @@
-export const serviceUrl = "http://app:4000";
+export const serviceUrl = "http://127.0.0.1:4000";
 
 export const maggie = {
   firstName: "Maggie",

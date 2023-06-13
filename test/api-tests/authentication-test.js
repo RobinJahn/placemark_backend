@@ -7,7 +7,8 @@ suite("Authentication API tests", async () => {
   setup(async () => {
     await placemarkService.clearAuth();
     console.log("auth cleared");
-    await placemarkService.createUser(maggie);
+    const res = await placemarkService.createUser(maggie);
+    console.log(res);
     console.log("user created");
     await placemarkService.authenticate(maggieCredentials);
     console.log("user authenticated");

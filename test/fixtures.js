@@ -1,3 +1,5 @@
+export const serviceUrl = "http://localhost:4000";
+
 export const maggie = {
   firstName: "Maggie",
   lastName: "Simpson",

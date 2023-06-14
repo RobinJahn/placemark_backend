@@ -2,6 +2,7 @@ import boom from "@hapi/boom";
 import { db } from "../models/db.js";
 
 export const placemarkApi = {
+  auth: false,
   find: {
     handler: async function (request, h) {
       try {
@@ -14,6 +15,7 @@ export const placemarkApi = {
   },
 
   findOne: {
+    auth: false,
     handler: async function (request, h) {
       try {
         const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
@@ -28,6 +30,7 @@ export const placemarkApi = {
   },
 
   create: {
+    auth: false,
     handler: async function (request, h) {
       try {
         const placemark = await db.placemarkStore.addPlacemark(request.payload);
@@ -42,6 +45,7 @@ export const placemarkApi = {
   },
 
   deleteAll: {
+    auth: false,
     handler: async function (request, h) {
       try {
         await db.placemarkStore.deleteAllPlacemarks();

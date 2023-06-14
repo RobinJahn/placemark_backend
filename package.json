@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "npx nodemon src/server.js  --ignore 'src/models/json/*.json'",
     "lint": "npx eslint . --ext .js",
-    "test": "npx mocha --ui tdd --exit --timeout 10000 test/**/*.js"
+    "test": "npx mocha --ui tdd --timeout 10000 --exit test/**/*.js",
+    "start_and_test": "start-server-and-test dev http://127.0.0.1:4000 test",
+    "dev_node": "node src/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -17,9 +19,13 @@
     "@hapi/hapi": "^21.3.2",
     "@hapi/inert": "^7.1.0",
     "@hapi/vision": "^7.0.1",
+    "axios": "^1.4.0",
     "chai": "^4.3.7",
     "dotenv": "^16.1.4",
     "handlebars": "^4.7.7",
+    "hapi-auth-jwt2": "^10.4.0",
+    "hapi-swagger": "^16.0.1",
+    "joi": "^17.9.2",
     "mais-mongoose-seeder": "^1.0.7",
     "mocha": "^10.2.0",
     "mongoose": "^7.2.2"
@@ -30,6 +36,7 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
     "nodemon": "^2.0.22",
-    "prettier": "^2.8.8"
+    "prettier": "^2.8.8",
+    "start-server-and-test": "^2.0.0"
   }
 }

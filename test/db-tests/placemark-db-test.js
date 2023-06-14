@@ -6,6 +6,12 @@ import { db } from "../../src/models/db.js";
 suite("Placemark mongo db test", () => {
   suiteSetup(async () => {
     await db.init("mongo");
+    // Wait for the database to be initialized
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, 5000);
+    });
   });
 
   setup(async () => {

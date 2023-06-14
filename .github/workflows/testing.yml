@@ -1,0 +1,45 @@
+name: Run tests on dev branch
+
+on:
+  push:
+    branches: [ "feature_github_actions" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    environment: test-environment
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Start server with environment variables
+        env:
+          COOKIE_NAME: ${{ secrets.COOKIE_NAME }}
+          COOKIE_PASSWORD: ${{ secrets.COOKIE_PASSWORD }}
+          DB: ${{ secrets.DB }}
+          PORT: 4000
+        run: npm run dev_node &
+
+      - name: Wait for server to start
+        run: sleep 10s # Adjust the sleep duration as needed
+
+      - name: Ping server
+        run: curl -I localhost:4000
+
+      - name: Run tests
+        env:
+          COOKIE_NAME: ${{ secrets.COOKIE_NAME }}
+          COOKIE_PASSWORD: ${{ secrets.COOKIE_PASSWORD }}
+          DB: ${{ secrets.DB }}
+        run: npm run test
+

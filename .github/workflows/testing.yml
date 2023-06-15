@@ -42,14 +42,10 @@ jobs:
           COOKIE_PASSWORD: ${{ secrets.COOKIE_PASSWORD }}
           DB: ${{ secrets.DB }}
         run: npm run test
-        continue-on-error: true
 
       - name: Upload log file
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: server-logs
           path: log.txt
-
-      - name: Fail Workflow if Any Step Failed
-        run: exit ${{ job.status }}
-        if: ${{ always() }}

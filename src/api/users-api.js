@@ -6,6 +6,7 @@ export const userApi = {
   find: {
     auth: false,
     handler: async function (request, h) {
+      console.log("find");
       try {
         const users = await db.userStore.getAllUsers();
         return users;
@@ -18,6 +19,7 @@ export const userApi = {
   findOne: {
     auth: false,
     handler: async function (request, h) {
+      console.log("findOne");
       try {
         const user = await db.userStore.getUserById(request.params.id);
         if (!user) {
@@ -33,6 +35,7 @@ export const userApi = {
   create: {
     auth: false,
     handler: async function (request, h) {
+      console.log("create");
       try {
         const user = await db.userStore.addUser(request.payload);
         if (user) {
@@ -48,6 +51,7 @@ export const userApi = {
   deleteAll: {
     auth: false,
     handler: async function (request, h) {
+      console.log("deleteAll");
       try {
         await db.userStore.deleteAllUsers();
         return h.response().code(204);
@@ -60,6 +64,7 @@ export const userApi = {
   authenticate: {
     auth: false,
     handler: async function (request, h) {
+      console.log("authenticate");
       try {
         console.log("started function authenticate");
         const user = await db.userStore.getUserByEmail(request.payload.email);

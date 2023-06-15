@@ -28,7 +28,7 @@ jobs:
           COOKIE_PASSWORD: ${{ secrets.COOKIE_PASSWORD }}
           DB: ${{ secrets.DB }}
           PORT: 4000
-        run: npm run dev_node & > log.txt 2>&1
+        run: npm run dev_node > log.txt 2>&1 &
 
       - name: Wait for server to start
         run: sleep 10s # Adjust the sleep duration as needed
@@ -45,7 +45,7 @@ jobs:
         continue-on-error: true
 
       - name: Upload log file
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: server-logs
           path: log.txt

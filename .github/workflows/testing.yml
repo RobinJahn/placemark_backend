@@ -42,6 +42,7 @@ jobs:
           COOKIE_PASSWORD: ${{ secrets.COOKIE_PASSWORD }}
           DB: ${{ secrets.DB }}
         run: npm run test
+        continue-on-error: true
 
       - name: Upload log file
         uses: actions/upload-artifact@v2

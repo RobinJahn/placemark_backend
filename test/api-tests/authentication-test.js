@@ -6,14 +6,9 @@ import { maggie, maggieCredentials } from "../fixtures.js";
 suite("Authentication API tests", async () => {
   setup(async () => {
     await placemarkService.clearAuth();
-    console.log("auth cleared");
     const res = await placemarkService.createUser(maggie);
-    console.log(res);
-    console.log("user created");
     await placemarkService.authenticate(maggieCredentials);
-    console.log("user authenticated");
     await placemarkService.deleteAllUsers();
-    console.log("users deleted");
   });
 
   test("authenticate", async () => {

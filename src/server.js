@@ -9,6 +9,7 @@ import Joi from "joi";
 import Handlebars from "handlebars";
 import { fileURLToPath } from "url";
 import path from "path";
+
 import { validate } from "./api/jwt-utils.js";
 import { apiRoutes } from "./api-routes.js";
 import { db } from "./models/db.js";
@@ -68,7 +69,7 @@ async function init() {
   server.validator(Joi);
 
   server.auth.strategy("jwt", "jwt", {
-    key: process.env.cookie_password,
+    key: process.env.COOKIE_PASSWORD,
     validate: validate,
     verifyOptions: { algorithms: ["HS256"] },
   });

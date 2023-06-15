@@ -50,3 +50,6 @@ jobs:
           name: server-logs
           path: log.txt
 
+      - name: Fail Workflow if Any Step Failed
+        run: exit ${{ job.status }}
+        if: ${{ always() }}

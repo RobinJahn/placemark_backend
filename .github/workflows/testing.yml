@@ -2,7 +2,7 @@ name: Run tests on dev branch
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "*" ]
 
 jobs:
   test:

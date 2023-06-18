@@ -41,7 +41,7 @@ export function getUserIdFromRequest(request) {
   try {
     const { authorization } = request.headers;
     const token = authorization.split(" ")[1];
-    const decodedToken = jwt.verify(token, "secretpasswordnotrevealedtoanyone");
+    const decodedToken = jwt.verify(token, process.env.COOKIE_PASSWORD);
     userId = decodedToken.id;
   } catch (e) {
     userId = null;

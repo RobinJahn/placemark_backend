@@ -7,6 +7,8 @@ const placemarkSchema = new Schema({
   lat: Number,
   lng: Number,
   user: String,
+
+  image_list: [String],
 });
 
 export const Placemark = Mongoose.model("Placemark", placemarkSchema);

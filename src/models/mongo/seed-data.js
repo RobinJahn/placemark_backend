@@ -20,6 +20,7 @@ export const seedData = {
       password: "secret",
     },
   },
+
   placemarks: {
     _model: "Placemark",
     one: {
@@ -27,6 +28,7 @@ export const seedData = {
       lat: "52.160858",
       lng: "-7.152420",
       user: "->users.homer",
+      images: ["https://res.cloudinary.com/daz7pjw2v/image/upload/v1683366714/qqra46cr1wbn0n7ps8al.jpg"],
     },
     two: {
       name: "Placemark 2",

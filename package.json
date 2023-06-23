@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "npx nodemon src/server.js --ignore 'src/models/json/*.json' --ignore 'test'",
     "lint": "npx eslint . --ext .js",
-    "test": "npx mocha --ui tdd --timeout -1 --exit test/**/*.js",
+    "test": "npx mocha --ui tdd --timeout 10000 --exit test/**/*.js",
     "start_and_test": "start-server-and-test dev http://127.0.0.1:4000 test",
     "dev_node": "node src/server.js"
   },

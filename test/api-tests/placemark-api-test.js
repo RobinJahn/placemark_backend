@@ -68,15 +68,22 @@ suite("Placemark API tests", () => {
     const createdPlacemark = await placemarkService.createPlacemark(Stockholm);
     assertSubset(Stockholm, createdPlacemark);
 
-    // create a new placemark and assign the attributes separately
-    const newPlacemark = {};
+    let newPlacemark = {};
     newPlacemark.name = "Updated Name";
     newPlacemark.description = "Updated Description";
     newPlacemark.lat = 99.99;
     newPlacemark.lng = 99.99;
     newPlacemark.image_list = ["image1", "image2"];
 
-    const updatedPlacemark = await placemarkService.updatePlacemark(createdPlacemark._id, newPlacemark);
+    let updatedPlacemark = await placemarkService.updatePlacemark(createdPlacemark._id, newPlacemark);
+    assertSubset(createdPlacemark, updatedPlacemark);
+
+    newPlacemark = {};
+    newPlacemark.name = "Updated Name";
+    newPlacemark.lat = 99.99;
+    newPlacemark.lng = 99.99;
+
+    updatedPlacemark = await placemarkService.updatePlacemark(createdPlacemark._id, newPlacemark);
     assertSubset(createdPlacemark, updatedPlacemark);
   });
 });

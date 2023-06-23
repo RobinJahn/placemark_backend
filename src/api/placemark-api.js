@@ -1,6 +1,6 @@
 import boom from "@hapi/boom";
 import { db } from "../models/db.js";
-import { IdSpec, PlacemarkArray, PlacemarkSpec, PlacemarkSpecPlus } from "../models/joi-schemas.js";
+import { IdSpec, PlacemarkArray, PlacemarkSpec, PlacemarkSpecForUpdate, PlacemarkSpecPlus } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
 
 export const placemarkApi = {
@@ -112,7 +112,7 @@ export const placemarkApi = {
     tags: ["api"],
     description: "Update a placemark",
     notes: "Updates a placemark in the database",
-    validate: { params: { id: IdSpec }, payload: PlacemarkSpec, failAction: validationError },
+    validate: { params: { id: IdSpec }, payload: PlacemarkSpecForUpdate, failAction: validationError },
     response: { schema: PlacemarkSpecPlus, failAction: validationError },
   },
 };

@@ -32,12 +32,23 @@ export const JwtAuth = Joi.object()
 export const PlacemarkSpec = Joi.object()
   .keys({
     name: Joi.string().example("Homer's House").required(),
-    description: Joi.string().example("Homer's House"),
+    description: Joi.string().example("Homer's House").required(),
     lat: Joi.number().example(51.92893).required(),
     lng: Joi.number().example(-8.46136).required(),
-    image_list: Joi.array().items(Joi.string().example("https://www.google.com/maps/uv?pb=!1s0x484490b4c0b1d6f5%3A0x260c3c3c3c3c3c3")).required(),
+    image_list: Joi.array().items(Joi.string().example("https://res.cloudinary.com/daz7pjw2v/image/upload/v1687427980/edqbisywhvfvpg99zyan.jpg")).required(),
   })
   .label("Placemark");
+
+export const PlacemarkSpecForUpdate = Joi.object()
+  .keys({
+    name: Joi.string().example("Homer's House"),
+    description: Joi.string().example("Homer's House"),
+    lat: Joi.number().example(51.92893),
+    lng: Joi.number().example(-8.46136),
+    image_list: Joi.array().items(Joi.string().example("https://res.cloudinary.com/daz7pjw2v/image/upload/v1687427980/edqbisywhvfvpg99zyan.jpg")),
+  })
+  .unknown(false)
+  .label("PlacemarkForUpdate");
 
 export const PlacemarkSpecWithUser = PlacemarkSpec.keys({
   user: IdSpec,

@@ -64,4 +64,18 @@ suite("Placemark API tests", () => {
       assert.equal(error.response.data.statusCode, 404);
     }
   });
+
+  test("update a placemark", async () => {
+    // create a new placemark
+    const newPlacemark = await placemarkService.createPlacemark(Stockholm);
+    // assertSubset
+    assertSubset(Stockholm, newPlacemark);
+    // change the placemark
+    newPlacemark.name = "Updated name";
+    newPlacemark.description = "Updated description";
+    // update the placemark
+    const updatedPlacemark = await placemarkService.updatePlacemark(newPlacemark);
+    // assertSubset
+    assertSubset(newPlacemark, updatedPlacemark);
+  });
 });

@@ -63,4 +63,21 @@ export const placemarkApi = {
       }
     },
   },
+
+  update: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        const response = await db.placemarkStore.updatePlacemark(request.params.id, request.payload);
+        if (!response) {
+          return boom.notFound("No Placemark with this id");
+        }
+        return h.response(response).code(204);
+      } catch (err) {
+        return boom.serverUnavailable("Database Error");
+      }
+    },
+  },
 };

@@ -67,4 +67,9 @@ export const placemarkService = {
     const response = await axios.delete(`${this.donationUrl}/api/placemarks`);
     return response.data;
   },
+
+  async updatePlacemark(placemark) {
+    const response = await axios.put(`${this.donationUrl}/api/placemarks/${placemark._id}`, placemark);
+    return response.data;
+  },
 };

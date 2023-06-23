@@ -40,12 +40,16 @@ export const placemarkMongoStore = {
     await Placemark.deleteMany({});
   },
 
-  async updatePlacemark(newPlacemark) {
-    const placemark = await Placemark.findOne({ _id: newPlacemark._id });
-    placemark.name = newPlacemark.name;
-    placemark.lat = newPlacemark.lat;
-    placemark.lng = newPlacemark.lng;
-    placemark.image_list = newPlacemark.image_list; // TODO: check if list is updated correctly
+  async updatePlacemark(id, newPlacemark) {
+    const placemark = await Placemark.findOne({ _id: id });
+    if (!placemark) {
+      return null;
+    }
+
+    // update palcemak with new Placemak data in one call without replacing additional attriebutes of palcemark
+    Object.assign(placemark, newPlacemark);
+
     await placemark.save();
+    return placemark;
   },
 };

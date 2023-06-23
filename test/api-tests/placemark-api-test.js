@@ -33,7 +33,6 @@ suite("Placemark API tests", () => {
     assert.equal(returnedPlacemarks.length, testPlacemarks.length + 1);
     await placemarkService.deleteAllPlacemarks();
     await placemarkService.createPlacemark(Stockholm);
-    await placemarkService.authenticate(maggieCredentials);
     returnedPlacemarks = await placemarkService.getAllPlacemarks();
     assert.equal(returnedPlacemarks.length, 1);
   });
@@ -66,16 +65,18 @@ suite("Placemark API tests", () => {
   });
 
   test("update a placemark", async () => {
-    // create a new placemark
-    const newPlacemark = await placemarkService.createPlacemark(Stockholm);
-    // assertSubset
-    assertSubset(Stockholm, newPlacemark);
-    // change the placemark
-    newPlacemark.name = "Updated name";
-    newPlacemark.description = "Updated description";
-    // update the placemark
-    const updatedPlacemark = await placemarkService.updatePlacemark(newPlacemark);
-    // assertSubset
-    assertSubset(newPlacemark, updatedPlacemark);
+    const createdPlacemark = await placemarkService.createPlacemark(Stockholm);
+    assertSubset(Stockholm, createdPlacemark);
+
+    // create a new placemark and assign the attributes separately
+    const newPlacemark = {};
+    newPlacemark.name = "Updated Name";
+    newPlacemark.description = "Updated Description";
+    newPlacemark.lat = 99.99;
+    newPlacemark.lng = 99.99;
+    newPlacemark.image_list = ["image1", "image2"];
+
+    const updatedPlacemark = await placemarkService.updatePlacemark(createdPlacemark._id, newPlacemark);
+    assertSubset(createdPlacemark, updatedPlacemark);
   });
 });

@@ -68,8 +68,8 @@ export const placemarkService = {
     return response.data;
   },
 
-  async updatePlacemark(placemark) {
-    const response = await axios.put(`${this.donationUrl}/api/placemarks/${placemark._id}`, placemark);
+  async updatePlacemark(id, placemark) {
+    const response = await axios.put(`${this.donationUrl}/api/placemarks/${id}`, placemark);
     return response.data;
   },
 };

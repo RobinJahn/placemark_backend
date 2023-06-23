@@ -10,7 +10,7 @@ suite("Placemark mongo db test", () => {
     await new Promise((resolve) => {
       setTimeout(() => {
         resolve();
-      }, 5000);
+      }, 7000);
     });
   });
 

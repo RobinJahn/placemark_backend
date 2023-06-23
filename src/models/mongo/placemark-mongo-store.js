@@ -17,6 +17,7 @@ export const placemarkMongoStore = {
   async addPlacemark(placemark) {
     const newPlacemark = new Placemark(placemark);
     let placemarkObj = null;
+    // tries 5 times to save the placemark
     for (let i = 0; i < 5; i += 1) {
       // eslint-disable-next-line no-await-in-loop
       placemarkObj = await newPlacemark.save();
@@ -50,6 +51,8 @@ export const placemarkMongoStore = {
     Object.assign(placemark, newPlacemark);
 
     await placemark.save();
-    return placemark;
+
+    const p = await this.getPlacemarkById(id);
+    return p;
   },
 };

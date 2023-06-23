@@ -10,7 +10,7 @@ export const userApi = {
       strategy: "jwt",
     },
     handler: async function (request, h) {
-      console.log("find");
+      console.log("find users");
       try {
         const users = await db.userStore.getAllUsers();
         return users;
@@ -30,7 +30,7 @@ export const userApi = {
       strategy: "jwt",
     },
     handler: async function (request, h) {
-      console.log("findOne");
+      console.log("findOne user");
       try {
         const user = await db.userStore.getUserById(request.params.id);
         if (!user) {
@@ -38,7 +38,6 @@ export const userApi = {
         }
         return user;
       } catch (err) {
-        console.log("Error in /findOne", err);
         return Boom.serverUnavailable("No User with this id");
       }
     },
@@ -52,7 +51,7 @@ export const userApi = {
   create: {
     auth: false,
     handler: async function (request, h) {
-      console.log("create");
+      console.log("create user");
       try {
         const user = await db.userStore.addUser(request.payload);
         if (user) {
@@ -76,7 +75,7 @@ export const userApi = {
       strategy: "jwt",
     },
     handler: async function (request, h) {
-      console.log("deleteAll");
+      console.log("deleteAll users");
       try {
         await db.userStore.deleteAllUsers();
         return h.response().code(204);
@@ -93,7 +92,7 @@ export const userApi = {
   authenticate: {
     auth: false,
     handler: async function (request, h) {
-      console.log("authenticate");
+      console.log("authenticate user");
       try {
         const user = await db.userStore.getUserByEmail(request.payload.email);
         if (!user) {

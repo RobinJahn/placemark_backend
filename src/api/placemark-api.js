@@ -2,6 +2,7 @@ import boom from "@hapi/boom";
 import { db } from "../models/db.js";
 import { IdSpec, PlacemarkArray, PlacemarkSpec, PlacemarkSpecForUpdate, PlacemarkSpecPlus } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
+import { imageStore } from "../models/image-store.js";
 
 export const placemarkApi = {
   find: {
@@ -114,5 +115,36 @@ export const placemarkApi = {
     notes: "Updates a placemark in the database",
     validate: { params: { id: IdSpec }, payload: PlacemarkSpecForUpdate, failAction: validationError },
     response: { schema: PlacemarkSpecPlus, failAction: validationError },
+  },
+
+  addImage: {
+    auth: false,
+    handler: async function (request, h) {
+      try {
+        console.log("reading image");
+        console.log(request.payload);
+
+        const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
+
+        const file = request.payload.image;
+        if (Object.keys(file).length > 0) {
+          console.log("upload image");
+          const url = await imageStore.uploadImage(request.payload.image);
+          console.log("Image upload successful");
+          console.log(url);
+          await db.placemarkStore.addImage(request.params.id, url);
+        }
+        return placemark;
+      } catch (err) {
+        console.log(err);
+        return boom.badImplementation(err);
+      }
+    },
+    payload: {
+      multipart: true,
+      output: "data",
+      maxBytes: 209715200,
+      parse: true,
+    },
   },
 };

@@ -55,4 +55,17 @@ export const placemarkMongoStore = {
     const p = await this.getPlacemarkById(id);
     return p;
   },
+
+  async addImage(id, url) {
+    const placemark = await Placemark.findOne({ _id: id });
+    if (!placemark) {
+      return null;
+    }
+
+    placemark.image_list.push(url);
+    await placemark.save();
+
+    const p = await this.getPlacemarkById(id);
+    return p;
+  },
 };

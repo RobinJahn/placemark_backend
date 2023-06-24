@@ -121,14 +121,13 @@ export const placemarkApi = {
     auth: false,
     handler: async function (request, h) {
       try {
-        console.log("reading image");
-        console.log(request.payload);
+        console.log("upload image");
+        // console.log(request.payload);
 
         const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
 
         const file = request.payload.image;
         if (Object.keys(file).length > 0) {
-          console.log("upload image");
           const url = await imageStore.uploadImage(request.payload.image);
           console.log("Image upload successful");
           console.log(url);

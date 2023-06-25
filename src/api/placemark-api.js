@@ -124,8 +124,6 @@ export const placemarkApi = {
         console.log("upload image");
         // console.log(request.payload);
 
-        const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
-
         const file = request.payload.image;
         if (Object.keys(file).length > 0) {
           const url = await imageStore.uploadImage(request.payload.image);
@@ -133,6 +131,8 @@ export const placemarkApi = {
           console.log(url);
           await db.placemarkStore.addImage(request.params.id, url);
         }
+
+        const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
         return placemark;
       } catch (err) {
         console.log(err);

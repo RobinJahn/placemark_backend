@@ -15,6 +15,7 @@ export const apiRoutes = [
   { method: "DELETE", path: "/api/placemarks", config: placemarkApi.deleteAll },
   { method: "PUT", path: "/api/placemarks/{id}", config: placemarkApi.update },
   { method: "POST", path: "/api/placemarks/{id}/addImage", config: placemarkApi.addImage },
+  { method: "DELETE", path: "/api/placemarks/{id}/deleteImage", config: placemarkApi.deleteImage },
 
   { method: "GET", path: "/api/apitest", config: testApi.apitest },
 ];

@@ -146,4 +146,24 @@ export const placemarkApi = {
       parse: true,
     },
   },
+
+  deleteImage: {
+    auth: false,
+    handler: async function (request, h) {
+      try {
+        console.log("delete image");
+
+        const { imageUrl } = request.payload;
+
+        await imageStore.deleteImage(imageUrl);
+        await db.placemarkStore.deleteImage(request.params.id, imageUrl);
+
+        const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
+        return placemark;
+      } catch (err) {
+        console.log(err);
+        return boom.badImplementation(err);
+      }
+    },
+  },
 };

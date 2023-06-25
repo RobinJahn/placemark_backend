@@ -23,7 +23,10 @@ export const imageStore = {
     return response.url;
   },
 
-  deleteImage: async function (img) {
+  deleteImage: async function (imgUrl) {
+    let img = imgUrl.split("/").pop();
+    img = img.split(".").shift();
+
     await cloudinary.v2.uploader.destroy(img, {});
   },
 };

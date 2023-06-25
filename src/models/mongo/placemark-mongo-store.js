@@ -68,4 +68,20 @@ export const placemarkMongoStore = {
     const p = await this.getPlacemarkById(id);
     return p;
   },
+
+  async deleteImage(id, url) {
+    const placemark = await Placemark.findOne({ _id: id });
+    if (!placemark) {
+      return null;
+    }
+
+    const index = placemark.image_list.indexOf(url);
+    if (index > -1) {
+      placemark.image_list.splice(index, 1);
+      await placemark.save();
+    }
+
+    const p = await this.getPlacemarkById(id);
+    return p;
+  },
 };

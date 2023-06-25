@@ -30,7 +30,7 @@ export const seedData = {
       user: "->users.homer",
       description:
         "The Vasa Museum is a maritime museum located in Stockholm, Sweden. It is situated on the island of Djurgården and is one of the most popular tourist attractions in the country. The museum's main exhibit is the Vasa, a 64-gun warship that sank on her maiden voyage in 1628. The Vasa is the only almost fully intact 17th century ship that has ever been salvaged. The ship is housed in a purpose-built museum that allows visitors to view it from six different levels. The museum also contains several exhibits related to the ship's construction, naval warfare, and life on board a 17th-century warship. The museum opened in 1990 and has since welcomed millions of visitors from around the world. It offers guided tours and educational programs for children and adults alike. The Vasa Museum is a testament to Sweden's rich maritime history and a reminder of the power and might of the Swedish navy during the 17th century.",
-      image_list: ["http://res.cloudinary.com/daz7pjw2v/image/upload/v1687427980/edqbisywhvfvpg99zyan.jpg"],
+      image_list: [],
     },
     two: {
       name: "Liseberg Amusement Park, Gothenburg",

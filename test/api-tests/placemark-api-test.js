@@ -1,4 +1,5 @@
 import { assert } from "chai";
+import * as fs from "fs";
 import { assertSubset } from "../test-utils.js";
 import { maggie, maggieCredentials, Stockholm, testPlacemarks } from "../fixtures.js";
 import { placemarkService } from "../placemarkService.js";
@@ -85,5 +86,29 @@ suite("Placemark API tests", () => {
 
     updatedPlacemark = await placemarkService.updatePlacemark(createdPlacemark._id, newPlacemark);
     assertSubset(createdPlacemark, updatedPlacemark);
+  });
+
+  test("Upload and delete Image", async () => {
+    const createdPlacemark = await placemarkService.createPlacemark(Stockholm);
+    const initialImageListLength = createdPlacemark.image_list.length;
+    const id = createdPlacemark._id;
+    const imageFilePath = "./test/test-resources/green-leaves-1410259.jpg";
+
+    const imageFileData = fs.readFileSync(imageFilePath);
+    const imageFile = new Blob([imageFileData], { type: "image/jpeg" });
+    imageFile.name = "image.jpg";
+
+    const formData = new FormData();
+    formData.append("image", imageFile);
+
+    const response = await placemarkService.uploadImage(id, formData);
+
+    assert(response.status === 200);
+    assert(response.data.image_list.length === initialImageListLength + 1);
+
+    const responseAfterDelete = await placemarkService.deleteImage(id, response.data.image_list[response.data.image_list.length - 1]);
+
+    assert(responseAfterDelete.status === 200);
+    assert(responseAfterDelete.data.image_list.length === initialImageListLength);
   });
 });

@@ -72,4 +72,22 @@ export const placemarkService = {
     const response = await axios.put(`${this.donationUrl}/api/placemarks/${id}`, placemark);
     return response.data;
   },
+
+  async uploadImage(id, fromData) {
+    const response = await axios.post(`${this.donationUrl}/api/placemarks/${id}/addImage`, fromData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response;
+  },
+
+  async deleteImage(id, imageUrl) {
+    const response = await axios.delete(`${this.donationUrl}/api/placemarks/${id}/deleteImage`, {
+      data: {
+        imageUrl: imageUrl,
+      },
+    });
+    return response;
+  },
 };

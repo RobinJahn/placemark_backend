@@ -27,6 +27,9 @@ jobs:
           COOKIE_NAME: ${{ secrets.COOKIE_NAME }}
           COOKIE_PASSWORD: ${{ secrets.COOKIE_PASSWORD }}
           DB: ${{ secrets.DB }}
+          CLOUDINARY_NAME: ${{ secrets.CLOUDINARY_NAME }}
+          CLOUDINARY_KEY: ${{ secrets.CLOUDINARY_KEY }}
+          CLOUDINARY_SECRET: ${{ secrets.CLOUDINARY_SECRET }}
           PORT: 4000
         run: npm run dev_node > log.txt 2>&1 &
 
@@ -41,6 +44,9 @@ jobs:
           COOKIE_NAME: ${{ secrets.COOKIE_NAME }}
           COOKIE_PASSWORD: ${{ secrets.COOKIE_PASSWORD }}
           DB: ${{ secrets.DB }}
+          CLOUDINARY_NAME: ${{ secrets.CLOUDINARY_NAME }}
+          CLOUDINARY_KEY: ${{ secrets.CLOUDINARY_KEY }}
+          CLOUDINARY_SECRET: ${{ secrets.CLOUDINARY_SECRET }}
         run: npm run test
 
       - name: Upload log file

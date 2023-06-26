@@ -32,7 +32,7 @@ export const seedData = {
 
       lat: "59.3280",
       lng: "18.0914",
-      user: "->users.homer",
+      user: "->users.bart",
     },
     two: {
       name: "Liseberg Amusement Park, Gothenburg",
@@ -43,7 +43,7 @@ export const seedData = {
 
       lat: "57.6962",
       lng: "11.9925",
-      user: "->users.marge",
+      user: "->users.bart",
     },
     three: {
       name: "Turning Torso, Malmö",
@@ -65,7 +65,7 @@ export const seedData = {
 
       lat: "67.8558",
       lng: "20.2251",
-      user: "->users.marge",
+      user: "->users.bart",
     },
     five: {
       name: "Visby City Wall, Visby",
@@ -76,6 +76,17 @@ export const seedData = {
 
       lat: "57.6369",
       lng: "18.2943",
+      user: "->users.bart",
+    },
+    six: {
+      name: "Lund Cathedral, Lund",
+      description:
+        "Lund Cathedral is a prominent historical landmark located in Lund, Sweden. The cathedral was consecrated in 1145, and has been the religious center of Sweden for many centuries. The cathedral is built in the Romanesque architectural style and features a richly decorated interior. The crypt, with its characteristic pillars, is particularly noteworthy. Lund Cathedral is also home to one of the oldest working mechanical clocks in the world, the Horologium mirabile Lundense, which dates back to the 14th century. The cathedral is more than just a place of worship, it's a testament to Sweden's rich history and a symbol of the city of Lund. It is open to visitors and offers guided tours that provide insights into its architectural, historical, and religious significance.",
+      category: "Historical Sites",
+      image_list: [],
+
+      lat: "55.7047",
+      lng: "13.1910",
       user: "->users.marge",
     },
   },

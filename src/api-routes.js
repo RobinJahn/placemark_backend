@@ -9,7 +9,7 @@ export const apiRoutes = [
   { method: "DELETE", path: "/api/users", config: userApi.deleteAll },
   { method: "POST", path: "/api/users/authenticate", config: userApi.authenticate },
 
-  { method: "GET", path: "/api/placemarks", config: placemarkApi.find },
+  { method: "GET", path: "/api/placemarks", config: placemarkApi.findAll },
   { method: "GET", path: "/api/placemarks/{id}", config: placemarkApi.findOne },
   { method: "POST", path: "/api/placemarks", config: placemarkApi.create },
   { method: "DELETE", path: "/api/placemarks", config: placemarkApi.deleteAll },

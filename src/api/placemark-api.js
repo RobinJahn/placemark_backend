@@ -5,14 +5,15 @@ import { validationError } from "./logger.js";
 import { imageStore } from "../models/image-store.js";
 
 export const placemarkApi = {
-  find: {
+  findAll: {
     auth: {
       strategy: "jwt",
     },
     handler: async function (request, h) {
       console.log("find placemarks");
       try {
-        const placemarks = await db.placemarkStore.getAllPlacemarks();
+        const user = request.auth.credentials;
+        const placemarks = await db.placemarkStore.getAllPlacemarks(user);
         return placemarks;
       } catch (err) {
         return boom.serverUnavailable("Database Error");
@@ -31,7 +32,8 @@ export const placemarkApi = {
     handler: async function (request, h) {
       console.log("findOne placemark");
       try {
-        const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
+        const user = request.auth.credentials;
+        const placemark = await db.placemarkStore.getPlacemarkById(request.params.id, user);
         if (!placemark) {
           return boom.notFound("No Placemark with this id");
         }
@@ -83,7 +85,8 @@ export const placemarkApi = {
     handler: async function (request, h) {
       console.log("deleteAll placemarks");
       try {
-        await db.placemarkStore.deleteAllPlacemarks();
+        const user = request.auth.credentials;
+        await db.placemarkStore.deleteAllPlacemarks(user);
         return h.response().code(204);
       } catch (err) {
         return boom.serverUnavailable("Database Error");
@@ -101,12 +104,14 @@ export const placemarkApi = {
     handler: async function (request, h) {
       console.log("update placemark");
       try {
-        const response = await db.placemarkStore.updatePlacemark(request.params.id, request.payload);
+        const user = request.auth.credentials;
+        const response = await db.placemarkStore.updatePlacemark(request.params.id, request.payload, user);
         if (!response) {
           return boom.notFound("No Placemark with this id");
         }
         return h.response(response).code(200);
       } catch (err) {
+        console.log(err);
         return boom.serverUnavailable("Database Error");
       }
     },
@@ -120,20 +125,25 @@ export const placemarkApi = {
   addImage: {
     auth: false,
     handler: async function (request, h) {
+      console.log("upload image");
       try {
-        console.log("upload image");
         // console.log(request.payload);
+        const user = request.auth.credentials;
+        const placemark = await db.placemarkStore.getPlacemarkById(request.params.id, user);
+        if (!placemark) {
+          return boom.notFound("There is no placemark with this id or you are not the owner");
+        }
 
         const file = request.payload.image;
         if (Object.keys(file).length > 0) {
           const url = await imageStore.uploadImage(request.payload.image);
           console.log("Image upload successful");
           console.log(url);
-          await db.placemarkStore.addImage(request.params.id, url);
+          await db.placemarkStore.addImage(request.params.id, url, user);
         }
 
-        const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
-        return placemark;
+        const placemarkAfterUpdate = await db.placemarkStore.getPlacemarkById(request.params.id, user);
+        return placemarkAfterUpdate;
       } catch (err) {
         console.log(err);
         return boom.badImplementation(err);
@@ -150,16 +160,21 @@ export const placemarkApi = {
   deleteImage: {
     auth: false,
     handler: async function (request, h) {
+      console.log("delete image");
       try {
-        console.log("delete image");
+        const user = request.auth.credentials;
+        const placemark = await db.placemarkStore.getPlacemarkById(request.params.id, user);
+        if (!placemark) {
+          return boom.notFound("There is no placemark with this id or you are not the owner");
+        }
 
         const { imageUrl } = request.payload;
 
         await imageStore.deleteImage(imageUrl);
         await db.placemarkStore.deleteImage(request.params.id, imageUrl);
 
-        const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
-        return placemark;
+        const placemarkAfterDelete = await db.placemarkStore.getPlacemarkById(request.params.id);
+        return placemarkAfterDelete;
       } catch (err) {
         console.log(err);
         return boom.badImplementation(err);

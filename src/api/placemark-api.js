@@ -123,7 +123,9 @@ export const placemarkApi = {
   },
 
   addImage: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       console.log("upload image");
       try {
@@ -158,7 +160,9 @@ export const placemarkApi = {
   },
 
   deleteImage: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       console.log("delete image");
       try {
@@ -173,7 +177,7 @@ export const placemarkApi = {
         await imageStore.deleteImage(imageUrl);
         await db.placemarkStore.deleteImage(request.params.id, imageUrl);
 
-        const placemarkAfterDelete = await db.placemarkStore.getPlacemarkById(request.params.id);
+        const placemarkAfterDelete = await db.placemarkStore.getPlacemarkById(request.params.id, user);
         return placemarkAfterDelete;
       } catch (err) {
         console.log(err);

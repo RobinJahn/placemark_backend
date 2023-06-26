@@ -43,7 +43,7 @@ export const placemarkMongoStore = {
   },
 
   async updatePlacemark(id, newPlacemark, user) {
-    const placemark = await Placemark.findOne({ _id: id, user: user }).lean();
+    const placemark = await Placemark.findOne({ _id: id, user: user });
     if (!placemark) {
       return null;
     }

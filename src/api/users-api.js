@@ -12,6 +12,10 @@ export const userApi = {
     handler: async function (request, h) {
       console.log("find users");
       try {
+        if (!(await db.userStore.isAdmin(request.auth.credentials._id))) {
+          return Boom.unauthorized("Not an Admin");
+        }
+
         const users = await db.userStore.getAllUsers();
         return users;
       } catch (err) {
@@ -32,13 +36,18 @@ export const userApi = {
     handler: async function (request, h) {
       console.log("findOne user");
       try {
+        if (!(await db.userStore.isAdmin(request.auth.credentials._id)) && request.params.id.toString() !== request.auth.credentials._id.toString()) {
+          return Boom.unauthorized("Not an Admin");
+        }
+
         const user = await db.userStore.getUserById(request.params.id);
+
         if (!user) {
           return Boom.notFound("No User with this id");
         }
         return user;
       } catch (err) {
-        return Boom.serverUnavailable("No User with this id");
+        return Boom.serverUnavailable("Database Error");
       }
     },
     tags: ["api"],
@@ -53,7 +62,16 @@ export const userApi = {
     handler: async function (request, h) {
       console.log("create user");
       try {
-        const user = await db.userStore.addUser(request.payload);
+        const userToCreate = request.payload;
+        userToCreate.isAdmin = false;
+
+        // check if mail already exists
+        const userWithSameMail = await db.userStore.getUserByEmail(userToCreate.email);
+        if (userWithSameMail) {
+          return Boom.conflict("User with this e-mail already exists");
+        }
+
+        const user = await db.userStore.addUser(userToCreate);
         if (user) {
           return h.response(user).code(201);
         }
@@ -70,14 +88,39 @@ export const userApi = {
     response: { schema: UserSpecPlus, failAction: validationError },
   },
 
+  deleteOne: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      console.log("deleteOne user");
+      try {
+        if (!(await db.userStore.isAdmin(request.auth.credentials._id)) && request.params.id.toString() !== request.auth.credentials._id.toString()) {
+          return Boom.unauthorized("Not an Admin");
+        }
+
+        const user = await db.userStore.deleteUserById(request.params.id);
+        return h.response(user).code(204);
+      } catch (err) {
+        console.log("Error in /deleteOne", err);
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+  },
+
   deleteAll: {
     auth: {
       strategy: "jwt",
     },
     handler: async function (request, h) {
       console.log("deleteAll users");
+
+      if (!(await db.userStore.isAdmin(request.auth.credentials._id))) {
+        return Boom.unauthorized("Not an Admin");
+      }
+
       try {
-        await db.userStore.deleteAllUsers();
+        await db.userStore.deleteAllNonAdminUsers();
         return h.response().code(204);
       } catch (err) {
         console.log("Error in /deleteAll", err);
@@ -85,8 +128,8 @@ export const userApi = {
       }
     },
     tags: ["api"],
-    description: "Delete all userApi",
-    notes: "All userApi removed from Playtime",
+    description: "Delete all users excluding admin-users",
+    notes: "Removes all users excluding admin-users",
   },
 
   authenticate: {

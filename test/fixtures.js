@@ -1,5 +1,29 @@
 export const serviceUrl = "http://localhost:4000";
 
+export const adminUser = {
+  firstName: "Bart",
+  lastName: "Simpson",
+  email: "bart@simpson.com",
+  password: "secret",
+};
+
+export const adminCredentials = {
+  email: "bart@simpson.com",
+  password: "secret",
+};
+
+export const lisa = {
+  firstName: "Lisa",
+  lastName: "Simpson",
+  email: "lisa@simpson.com",
+  password: "secret",
+};
+
+export const lisaCredentials = {
+  email: "lisa@simpson.com",
+  password: "secret",
+};
+
 export const maggie = {
   firstName: "Maggie",
   lastName: "Simpson",
@@ -24,23 +48,6 @@ export const testUsers = [
     lastName: "Simpson",
     email: "marge@simpson.com",
     password: "secret",
-  },
-  {
-    firstName: "Bart",
-    lastName: "Simpson",
-    email: "bart@simpson.com",
-    password: "secret",
-  },
-];
-
-export const testCandidates = [
-  {
-    firstName: "Lisa",
-    lastName: "Simpson",
-  },
-  {
-    firstName: "Maggie",
-    lastName: "Simpson",
   },
 ];
 

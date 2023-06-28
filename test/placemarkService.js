@@ -20,15 +20,11 @@ export const placemarkService = {
   },
 
   async getAllUsers() {
-    try {
-      const res = await axios.get(`${this.donationUrl}/api/users`);
-      return res.data;
-    } catch (e) {
-      return null;
-    }
+    const res = await axios.get(`${this.donationUrl}/api/users`);
+    return res.data;
   },
 
-  async deleteAllUsers() {
+  async deleteAllNonAdminUsers() {
     const res = await axios.delete(`${this.donationUrl}/api/users`);
     return res.data;
   },
@@ -89,5 +85,27 @@ export const placemarkService = {
       },
     });
     return response;
+  },
+
+  async createAdminUser() {
+    try {
+      const response = await axios.post(`${this.donationUrl}/api/apitest/createAdminUser`);
+      return response.data;
+    } catch (e) {
+      if (e.response.status === 409) {
+        return null;
+      }
+      throw e;
+    }
+  },
+
+  async deleteAllUsers() {
+    const response = await axios.delete(`${this.donationUrl}/api/apitest/deleteAll`);
+    return response.data;
+  },
+
+  async deleteUser(id) {
+    const response = await axios.delete(`${this.donationUrl}/api/users/${id}`);
+    return response.data;
   },
 };

@@ -5,6 +5,7 @@ import { testApi } from "./api/test-api.js";
 export const apiRoutes = [
   { method: "GET", path: "/api/users", config: userApi.find },
   { method: "GET", path: "/api/users/{id}", config: userApi.findOne },
+  { method: "DELETE", path: "/api/users/{id}", config: userApi.deleteOne },
   { method: "POST", path: "/api/users", config: userApi.create },
   { method: "DELETE", path: "/api/users", config: userApi.deleteAll },
   { method: "POST", path: "/api/users/authenticate", config: userApi.authenticate },
@@ -18,4 +19,6 @@ export const apiRoutes = [
   { method: "DELETE", path: "/api/placemarks/{id}/deleteImage", config: placemarkApi.deleteImage },
 
   { method: "GET", path: "/api/apitest", config: testApi.apitest },
+  { method: "POST", path: "/api/apitest/createAdminUser", config: testApi.testCreateAdminUser },
+  { method: "DELETE", path: "/api/apitest/deleteAll", config: testApi.testDeleteAllUsers },
 ];

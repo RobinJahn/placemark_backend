@@ -15,6 +15,7 @@ export const UserSpec = UserCredentialsSpec.keys({
 }).label("UserDetails");
 
 export const UserSpecPlus = UserSpec.keys({
+  isAdmin: Joi.boolean().example("false"),
   _id: IdSpec,
   __v: Joi.number(),
 }).label("UserDetailsPlus");

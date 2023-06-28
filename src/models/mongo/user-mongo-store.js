@@ -8,8 +8,12 @@ export const userMongoStore = {
 
   async getUserById(id) {
     if (id) {
-      const user = await User.findOne({ _id: id }).lean();
-      return user;
+      try {
+        const user = await User.findOne({ _id: id }).lean();
+        return user;
+      } catch (error) {
+        console.log("bad id");
+      }
     }
     return null;
   },
@@ -28,13 +32,24 @@ export const userMongoStore = {
 
   async deleteUserById(id) {
     try {
-      await User.deleteOne({ _id: id });
+      return await User.deleteOne({ _id: id });
     } catch (error) {
       console.log("bad id");
+      return null;
     }
+  },
+
+  async deleteAllNonAdminUsers() {
+    // delete all non admin users
+    await User.deleteMany({ isAdmin: false });
   },
 
   async deleteAllUsers() {
     await User.deleteMany({});
+  },
+
+  async isAdmin(id) {
+    const user = await this.getUserById(id);
+    return user.isAdmin;
   },
 };

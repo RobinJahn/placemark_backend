@@ -1,13 +1,13 @@
 import { assert } from "chai";
 import { placemarkService } from "../placemarkService.js";
 import { decodeToken } from "../../src/api/jwt-utils.js";
-import { maggie, maggieCredentials } from "../fixtures.js";
+import { adminCredentials, maggie, maggieCredentials } from "../fixtures.js";
 
 suite("Authentication API tests", async () => {
   setup(async () => {
     await placemarkService.clearAuth();
-    const res = await placemarkService.createUser(maggie);
-    await placemarkService.authenticate(maggieCredentials);
+    await placemarkService.createAdminUser();
+    await placemarkService.authenticate(adminCredentials);
     await placemarkService.deleteAllUsers();
   });
 
@@ -30,7 +30,7 @@ suite("Authentication API tests", async () => {
   test("check Unauthorized", async () => {
     await placemarkService.clearAuth();
     try {
-      await placemarkService.deleteAllUsers();
+      await placemarkService.deleteAllNonAdminUsers();
       assert.fail("Route not protected");
     } catch (error) {
       assert.equal(error.response.data.statusCode, 401);

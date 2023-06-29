@@ -72,7 +72,17 @@ export const userApi = {
         }
 
         const user = await db.userStore.addUser(userToCreate);
+
         if (user) {
+          db.statisticStore
+            .addStatistic({
+              objectCategory: "user",
+              id: user._id,
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+
           return h.response(user).code(201);
         }
         return Boom.badImplementation("error creating user");

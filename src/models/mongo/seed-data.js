@@ -93,4 +93,54 @@ export const seedData = {
       user: "->users.marge",
     },
   },
+
+  statistics: {
+    _model: "Statistic",
+    one: {
+      creationDate: "2023-06-27T11:28:12.706Z",
+      objectCategory: "user",
+      id: "->users.bart",
+    },
+    two: {
+      creationDate: "2023-06-27T11:28:12.706Z",
+      objectCategory: "user",
+      id: "->users.marge",
+    },
+    three: {
+      creationDate: "2023-06-29T11:28:12.706Z",
+      objectCategory: "user",
+      id: "->users.homer",
+    },
+
+    four: {
+      creationDate: "2023-06-27T11:28:12.706Z",
+      objectCategory: "placemark",
+      id: "->placemarks.one",
+    },
+    five: {
+      creationDate: "2023-06-27T11:28:12.706Z",
+      objectCategory: "placemark",
+      id: "->placemarks.two",
+    },
+    six: {
+      creationDate: "2023-06-27T11:28:12.706Z",
+      objectCategory: "placemark",
+      id: "->placemarks.three",
+    },
+    seven: {
+      creationDate: "2023-06-28T11:28:12.706Z",
+      objectCategory: "placemark",
+      id: "->placemarks.four",
+    },
+    eight: {
+      creationDate: "2023-06-29T11:28:12.706Z",
+      objectCategory: "placemark",
+      id: "->placemarks.five",
+    },
+    nine: {
+      creationDate: "2023-06-29T11:28:12.706Z",
+      objectCategory: "placemark",
+      id: "->placemarks.six",
+    },
+  },
 };

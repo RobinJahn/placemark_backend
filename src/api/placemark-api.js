@@ -63,6 +63,15 @@ export const placemarkApi = {
 
         const placemark = await db.placemarkStore.addPlacemark(sentPlacemark);
         if (placemark) {
+          db.statisticStore
+            .addStatistic({
+              objectCategory: "placemark",
+              id: placemark._id,
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+
           return h.response(placemark).code(201);
         }
         return boom.badImplementation("error creating placemark");
@@ -142,6 +151,15 @@ export const placemarkApi = {
           console.log("Image upload successful");
           console.log(url);
           await db.placemarkStore.addImage(request.params.id, url, user);
+
+          db.statisticStore
+            .addStatistic({
+              objectCategory: "image",
+              id: url,
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         }
 
         const placemarkAfterUpdate = await db.placemarkStore.getPlacemarkById(request.params.id, user);

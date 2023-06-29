@@ -1,6 +1,7 @@
 import { userApi } from "./api/users-api.js";
 import { placemarkApi } from "./api/placemark-api.js";
 import { testApi } from "./api/test-api.js";
+import { statisticApi } from "./api/statistics-api.js";
 
 export const apiRoutes = [
   { method: "GET", path: "/api/users", config: userApi.find },
@@ -21,4 +22,6 @@ export const apiRoutes = [
   { method: "GET", path: "/api/apitest", config: testApi.apitest },
   { method: "POST", path: "/api/apitest/createAdminUser", config: testApi.testCreateAdminUser },
   { method: "DELETE", path: "/api/apitest/deleteAll", config: testApi.testDeleteAllUsers },
+
+  { method: "GET", path: "/api/statistics", config: statisticApi.find },
 ];

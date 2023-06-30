@@ -25,7 +25,7 @@ export const userApi = {
     },
     tags: ["api"],
     description: "Get all users",
-    notes: "Returns details of all users",
+    notes: "Returns details of all users. Requires Admin privileges",
     response: { schema: UserArray, failAction: validationError },
   },
 
@@ -52,7 +52,7 @@ export const userApi = {
     },
     tags: ["api"],
     description: "Get a specific user",
-    notes: "Returns user details",
+    notes: "Returns user details. Requires Admin privileges or the user's own id",
     validate: { params: { id: IdSpec }, failAction: validationError },
     response: { schema: UserSpecPlus, failAction: validationError },
   },
@@ -116,6 +116,10 @@ export const userApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Delete a specific user",
+    notes: "Removes a user. Requires Admin privileges or the user's own id",
+    validate: { params: { id: IdSpec }, failAction: validationError },
   },
 
   deleteAll: {
@@ -139,7 +143,7 @@ export const userApi = {
     },
     tags: ["api"],
     description: "Delete all users excluding admin-users",
-    notes: "Removes all users excluding admin-users",
+    notes: "Removes all users excluding admin-users. Requires Admin privileges",
   },
 
   authenticate: {

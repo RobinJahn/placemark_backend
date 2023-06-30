@@ -20,7 +20,7 @@ export const apiRoutes = [
   { method: "POST", path: "/api/placemarks/{id}/addImage", config: placemarkApi.addImage },
   { method: "DELETE", path: "/api/placemarks/{id}/deleteImage", config: placemarkApi.deleteImage },
 
-  { method: "GET", path: "/api/apitest", config: testApi.apitest },
+  { method: "GET", path: "/api/apitest", config: testApi.apiTest },
   { method: "POST", path: "/api/apitest/createAdminUser", config: testApi.testCreateAdminUser },
   { method: "DELETE", path: "/api/apitest/deleteAll", config: testApi.testDeleteAllUsers },
 

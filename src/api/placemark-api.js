@@ -20,7 +20,7 @@ export const placemarkApi = {
       }
     },
     tags: ["api"],
-    description: "Get all placemarks",
+    description: "Get all placemarks of the user",
     notes: "Returns details of all placemarks",
     response: { schema: PlacemarkArray, failAction: validationError },
   },
@@ -43,7 +43,7 @@ export const placemarkApi = {
       }
     },
     tags: ["api"],
-    description: "Get a specific placemark",
+    description: "Get a specific placemark of the user",
     notes: "Returns placemark details",
     validate: { params: { id: IdSpec }, failAction: validationError },
     response: { schema: PlacemarkSpecPlus, failAction: validationError },
@@ -81,7 +81,7 @@ export const placemarkApi = {
       }
     },
     tags: ["api"],
-    description: "Create a new placemark",
+    description: "Create a new placemark assigned to the user",
     notes: "Returns the created placemark",
     validate: { payload: PlacemarkSpec, failAction: validationError },
     response: { schema: PlacemarkSpecPlus, failAction: validationError },
@@ -105,7 +105,7 @@ export const placemarkApi = {
       }
     },
     tags: ["api"],
-    description: "Delete a placemark",
+    description: "Delete a own placemark",
     notes: "Deletes a placemark from the database",
     validate: { params: { id: IdSpec }, failAction: validationError },
   },
@@ -125,7 +125,7 @@ export const placemarkApi = {
       }
     },
     tags: ["api"],
-    description: "Delete all placemarks",
+    description: "Delete all placemarks of the user",
     notes: "Deletes all placemarks from the database",
   },
 
@@ -148,7 +148,7 @@ export const placemarkApi = {
       }
     },
     tags: ["api"],
-    description: "Update a placemark",
+    description: "Update a placemark of the user",
     notes: "Updates a placemark in the database",
     validate: { params: { id: IdSpec }, payload: PlacemarkSpecForUpdate, failAction: validationError },
     response: { schema: PlacemarkSpecPlus, failAction: validationError },
@@ -199,7 +199,7 @@ export const placemarkApi = {
       parse: true,
     },
     tags: ["api"],
-    description: "Upload an image",
+    description: "Upload an image to a placemark of the user",
     notes: "Upload an image to a placemark",
     validate: { params: { id: IdSpec }, payload: ImageSpec, failAction: validationError },
     response: { schema: PlacemarkSpecPlus, failAction: validationError },
@@ -231,7 +231,7 @@ export const placemarkApi = {
       }
     },
     tags: ["api"],
-    description: "Delete an image",
+    description: "Delete an image from a placemark of the user",
     notes: "Delete an image from a placemark",
     validate: { params: { id: IdSpec }, payload: ImageUrlSpec, failAction: validationError },
     response: { schema: PlacemarkSpecPlus, failAction: validationError },

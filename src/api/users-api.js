@@ -154,6 +154,16 @@ export const userApi = {
         if (user.password !== request.payload.password) {
           return Boom.unauthorized("Invalid password");
         }
+
+        db.statisticStore
+          .addStatistic({
+            objectCategory: "login",
+            id: user._id,
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
         const token = createToken(user);
         return h.response({ success: true, token: token, _id: user._id }).code(201);
       } catch (err) {

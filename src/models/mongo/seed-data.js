@@ -96,51 +96,72 @@ export const seedData = {
 
   statistics: {
     _model: "Statistic",
-    one: {
+    userOne: {
       creationDate: "2023-06-27T11:28:12.706Z",
       objectCategory: "user",
       id: "->users.bart",
     },
-    two: {
+    userTwo: {
       creationDate: "2023-06-27T11:28:12.706Z",
       objectCategory: "user",
       id: "->users.marge",
     },
-    three: {
+    userThree: {
       creationDate: "2023-06-29T11:28:12.706Z",
       objectCategory: "user",
       id: "->users.homer",
     },
 
-    four: {
-      creationDate: "2023-06-27T11:28:12.706Z",
+    placemarkOne: {
+      creationDate: "2023-06-26T11:28:12.706Z",
       objectCategory: "placemark",
       id: "->placemarks.one",
     },
-    five: {
+    placemarkTwo: {
       creationDate: "2023-06-27T11:28:12.706Z",
       objectCategory: "placemark",
       id: "->placemarks.two",
     },
-    six: {
+    placemarkThree: {
       creationDate: "2023-06-27T11:28:12.706Z",
       objectCategory: "placemark",
       id: "->placemarks.three",
     },
-    seven: {
+    placemarkFour: {
       creationDate: "2023-06-28T11:28:12.706Z",
       objectCategory: "placemark",
       id: "->placemarks.four",
     },
-    eight: {
+    placemarkFive: {
       creationDate: "2023-06-29T11:28:12.706Z",
       objectCategory: "placemark",
       id: "->placemarks.five",
     },
-    nine: {
+    placemarkSix: {
       creationDate: "2023-06-29T11:28:12.706Z",
       objectCategory: "placemark",
       id: "->placemarks.six",
+    },
+
+    loginOne: {
+      creationDate: "2023-06-26T11:28:12.706Z",
+      objectCategory: "login",
+      id: "->users.bart",
+    },
+    loginTwo: {
+      creationDate: "2023-06-27T11:28:12.706Z",
+      objectCategory: "login",
+      id: "->users.marge",
+    },
+    loginThree: {
+      creationDate: "2023-06-27T11:28:12.706Z",
+      objectCategory: "login",
+      id: "->users.homer",
+    },
+    loginFour: {
+      creationDate: "2023-06-28T11:28:12.706Z",
+      objectCategory: "login",
+      id: "->users.bart",
     },
   },
 };

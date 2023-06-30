@@ -7,7 +7,7 @@ export const statisticApi = {
       strategy: "jwt",
     },
     handler: async function (request, h) {
-      console.log("find statistics");
+      console.log("find statistics:", request.query.type);
       try {
         if (!(await db.userStore.isAdmin(request.auth.credentials._id))) {
           return Boom.unauthorized("Not an Admin");

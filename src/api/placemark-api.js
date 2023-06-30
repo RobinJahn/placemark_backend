@@ -1,6 +1,6 @@
 import boom from "@hapi/boom";
 import { db } from "../models/db.js";
-import { IdSpec, PlacemarkArray, PlacemarkSpec, PlacemarkSpecForUpdate, PlacemarkSpecPlus } from "../models/joi-schemas.js";
+import { IdSpec, ImageSpec, ImageUrlSpec, PlacemarkArray, PlacemarkSpec, PlacemarkSpecForUpdate, PlacemarkSpecPlus } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
 import { imageStore } from "../models/image-store.js";
 
@@ -104,6 +104,10 @@ export const placemarkApi = {
         return boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Delete a placemark",
+    notes: "Deletes a placemark from the database",
+    validate: { params: { id: IdSpec }, failAction: validationError },
   },
 
   deleteAll: {
@@ -194,6 +198,11 @@ export const placemarkApi = {
       maxBytes: 209715200,
       parse: true,
     },
+    tags: ["api"],
+    description: "Upload an image",
+    notes: "Upload an image to a placemark",
+    validate: { params: { id: IdSpec }, payload: ImageSpec, failAction: validationError },
+    response: { schema: PlacemarkSpecPlus, failAction: validationError },
   },
 
   deleteImage: {
@@ -221,5 +230,10 @@ export const placemarkApi = {
         return boom.badImplementation(err);
       }
     },
+    tags: ["api"],
+    description: "Delete an image",
+    notes: "Delete an image from a placemark",
+    validate: { params: { id: IdSpec }, payload: ImageUrlSpec, failAction: validationError },
+    response: { schema: PlacemarkSpecPlus, failAction: validationError },
   },
 };

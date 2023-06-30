@@ -65,3 +65,11 @@ export const PlacemarkSpecPlus = PlacemarkSpecWithUser.keys({
 }).label("PlacemarkPlus");
 
 export const PlacemarkArray = Joi.array().items(PlacemarkSpecPlus).label("PlacemarkArray");
+
+export const ImageSpec = Joi.object({
+  image: Joi.any().meta({ swaggerType: "file" }),
+});
+
+export const ImageUrlSpec = Joi.object({
+  imageUrl: Joi.string().uri().required().example("https://someLink.com/image.jpg"),
+});

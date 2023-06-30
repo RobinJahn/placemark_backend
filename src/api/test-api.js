@@ -32,7 +32,7 @@ export const testApi = {
           db.statisticStore
             .addStatistic({
               objectCategory: "user",
-              id: u._id,
+              id: user._id,
             })
             .catch((error) => {
               console.log(error);

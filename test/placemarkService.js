@@ -108,4 +108,13 @@ export const placemarkService = {
     const response = await axios.delete(`${this.donationUrl}/api/users/${id}`);
     return response.data;
   },
+
+  async getStatistic(type) {
+    const response = await axios.get(`${this.donationUrl}/api/statistics`, {
+      params: {
+        type: type,
+      },
+    });
+    return response.data;
+  },
 };

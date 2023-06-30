@@ -31,11 +31,13 @@ export const placemarkMongoStore = {
   },
 
   async deletePlacemarkById(id) {
+    let placemark = null;
     try {
-      await Placemark.deleteOne({ _id: id });
+      placemark = await Placemark.deleteOne({ _id: id });
     } catch (error) {
       console.log("bad id");
     }
+    return placemark;
   },
 
   async deleteAllPlacemarks(user) {

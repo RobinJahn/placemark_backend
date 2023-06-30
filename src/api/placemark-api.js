@@ -87,6 +87,25 @@ export const placemarkApi = {
     response: { schema: PlacemarkSpecPlus, failAction: validationError },
   },
 
+  deleteOne: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      console.log("deleteOne placemark");
+      try {
+        const user = request.auth.credentials;
+        const response = await db.placemarkStore.deletePlacemarkById(request.params.id);
+        if (!response) {
+          return boom.notFound("No Placemark with this id");
+        }
+        return h.response().code(204);
+      } catch (err) {
+        return boom.serverUnavailable("Database Error");
+      }
+    },
+  },
+
   deleteAll: {
     auth: {
       strategy: "jwt",

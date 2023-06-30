@@ -61,9 +61,9 @@ suite("Statistic API tests", () => {
 
     try {
       await placemarkService.getStatistic("user");
-      assert.fail("Should have thrown");
-    } catch (e) {
-      assert.equal(e.message, "Permission denied");
+      assert.fail("Should not return a response");
+    } catch (error) {
+      assert.equal(error.response.data.statusCode, 401);
     }
   });
 });

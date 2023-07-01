@@ -25,7 +25,7 @@ export const statisticApi = {
     tags: ["api"],
     description: "Get all statistics",
     notes: "Returns details of all statistics. Requires Admin privileges",
-    validate: { query: { type: StatisticTypeSpec }, failAction: validationError },
+    validate: { query: StatisticTypeSpec, failAction: validationError },
     response: { schema: StatisticArray, failAction: validationError },
   },
 };

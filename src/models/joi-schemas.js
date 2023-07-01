@@ -84,9 +84,11 @@ export const StatisticTypeSpec = Joi.object({
 export const StatisticArray = Joi.array()
   .items(
     Joi.object({
+      creationDate: Joi.date().required().example("2020-12-01T00:00:00.000Z"),
+      objectCategory: Joi.string().required().example("user"),
+      id: IdSpec,
       _id: IdSpec,
-      count: Joi.number().required().example(1),
-      type: Joi.string().required().example("user"),
+      __v: Joi.number(),
     })
   )
   .label("StatisticArray");

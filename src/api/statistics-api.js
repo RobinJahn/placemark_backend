@@ -1,5 +1,7 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
+import { StatisticArray, StatisticTypeSpec } from "../models/joi-schemas.js";
+import { validationError } from "./logger.js";
 
 export const statisticApi = {
   find: {
@@ -20,5 +22,10 @@ export const statisticApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Get all statistics",
+    notes: "Returns details of all statistics. Requires Admin privileges",
+    validate: { query: { type: StatisticTypeSpec }, failAction: validationError },
+    response: { schema: StatisticArray, failAction: validationError },
   },
 };

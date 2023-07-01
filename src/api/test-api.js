@@ -3,11 +3,14 @@ import { db } from "../models/db.js";
 import { adminUser } from "../../test/fixtures.js";
 
 export const testApi = {
-  apitest: {
+  apiTest: {
     auth: false,
     handler: async function (request, h) {
       return { message: "Api callback" };
     },
+    tags: ["api"],
+    description: "Test the API",
+    notes: "Returns a message to confirm the API is working",
   },
 
   testCreateAdminUser: {

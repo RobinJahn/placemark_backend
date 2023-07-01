@@ -14,12 +14,13 @@ export const apiRoutes = [
   { method: "GET", path: "/api/placemarks", config: placemarkApi.findAll },
   { method: "GET", path: "/api/placemarks/{id}", config: placemarkApi.findOne },
   { method: "POST", path: "/api/placemarks", config: placemarkApi.create },
+  { method: "DELETE", path: "/api/placemarks/{id}", config: placemarkApi.deleteOne },
   { method: "DELETE", path: "/api/placemarks", config: placemarkApi.deleteAll },
   { method: "PUT", path: "/api/placemarks/{id}", config: placemarkApi.update },
   { method: "POST", path: "/api/placemarks/{id}/addImage", config: placemarkApi.addImage },
   { method: "DELETE", path: "/api/placemarks/{id}/deleteImage", config: placemarkApi.deleteImage },
 
-  { method: "GET", path: "/api/apitest", config: testApi.apitest },
+  { method: "GET", path: "/api/apitest", config: testApi.apiTest },
   { method: "POST", path: "/api/apitest/createAdminUser", config: testApi.testCreateAdminUser },
   { method: "DELETE", path: "/api/apitest/deleteAll", config: testApi.testDeleteAllUsers },
 

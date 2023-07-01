@@ -33,6 +33,23 @@ suite("Placemark API tests", () => {
     assert.isDefined(newPlacemark._id);
   });
 
+  test("delete a placemark", async () => {
+    const createdPlacemark = await placemarkService.createPlacemark(Stockholm);
+    assertSubset(Stockholm, createdPlacemark);
+    try {
+      const response = await placemarkService.deletePlacemark(createdPlacemark._id);
+    } catch (error) {
+      assert.fail("Should not fail");
+    }
+    try {
+      const returnedPlacemark = await placemarkService.getPlacemark(createdPlacemark._id);
+      assert.fail("Should not return a response");
+    } catch (error) {
+      assert(error.response.data.message === "No Placemark with this id");
+      assert.equal(error.response.data.statusCode, 404);
+    }
+  });
+
   test("delete all placemarks", async () => {
     let returnedPlacemarks = await placemarkService.getAllPlacemarks();
     assert.equal(returnedPlacemarks.length, testPlacemarks.length + 1);

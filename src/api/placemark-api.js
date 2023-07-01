@@ -1,6 +1,6 @@
 import boom from "@hapi/boom";
 import { db } from "../models/db.js";
-import { IdSpec, PlacemarkArray, PlacemarkSpec, PlacemarkSpecForUpdate, PlacemarkSpecPlus } from "../models/joi-schemas.js";
+import { IdSpec, ImageSpec, ImageUrlSpec, PlacemarkArray, PlacemarkSpec, PlacemarkSpecForUpdate, PlacemarkSpecPlus } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
 import { imageStore } from "../models/image-store.js";
 
@@ -20,7 +20,7 @@ export const placemarkApi = {
       }
     },
     tags: ["api"],
-    description: "Get all placemarks",
+    description: "Get all placemarks of the user",
     notes: "Returns details of all placemarks",
     response: { schema: PlacemarkArray, failAction: validationError },
   },
@@ -43,7 +43,7 @@ export const placemarkApi = {
       }
     },
     tags: ["api"],
-    description: "Get a specific placemark",
+    description: "Get a specific placemark of the user",
     notes: "Returns placemark details",
     validate: { params: { id: IdSpec }, failAction: validationError },
     response: { schema: PlacemarkSpecPlus, failAction: validationError },
@@ -81,10 +81,33 @@ export const placemarkApi = {
       }
     },
     tags: ["api"],
-    description: "Create a new placemark",
+    description: "Create a new placemark assigned to the user",
     notes: "Returns the created placemark",
     validate: { payload: PlacemarkSpec, failAction: validationError },
     response: { schema: PlacemarkSpecPlus, failAction: validationError },
+  },
+
+  deleteOne: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      console.log("deleteOne placemark");
+      try {
+        const user = request.auth.credentials;
+        const response = await db.placemarkStore.deletePlacemarkById(request.params.id);
+        if (!response) {
+          return boom.notFound("No Placemark with this id");
+        }
+        return h.response().code(204);
+      } catch (err) {
+        return boom.serverUnavailable("Database Error");
+      }
+    },
+    tags: ["api"],
+    description: "Delete a own placemark",
+    notes: "Deletes a placemark from the database",
+    validate: { params: { id: IdSpec }, failAction: validationError },
   },
 
   deleteAll: {
@@ -102,7 +125,7 @@ export const placemarkApi = {
       }
     },
     tags: ["api"],
-    description: "Delete all placemarks",
+    description: "Delete all placemarks of the user",
     notes: "Deletes all placemarks from the database",
   },
 
@@ -125,7 +148,7 @@ export const placemarkApi = {
       }
     },
     tags: ["api"],
-    description: "Update a placemark",
+    description: "Update a placemark of the user",
     notes: "Updates a placemark in the database",
     validate: { params: { id: IdSpec }, payload: PlacemarkSpecForUpdate, failAction: validationError },
     response: { schema: PlacemarkSpecPlus, failAction: validationError },
@@ -175,6 +198,11 @@ export const placemarkApi = {
       maxBytes: 209715200,
       parse: true,
     },
+    tags: ["api"],
+    description: "Upload an image to a placemark of the user",
+    notes: "Upload an image to a placemark",
+    validate: { params: { id: IdSpec }, payload: ImageSpec, failAction: validationError },
+    response: { schema: PlacemarkSpecPlus, failAction: validationError },
   },
 
   deleteImage: {
@@ -202,5 +230,10 @@ export const placemarkApi = {
         return boom.badImplementation(err);
       }
     },
+    tags: ["api"],
+    description: "Delete an image from a placemark of the user",
+    notes: "Delete an image from a placemark",
+    validate: { params: { id: IdSpec }, payload: ImageUrlSpec, failAction: validationError },
+    response: { schema: PlacemarkSpecPlus, failAction: validationError },
   },
 };

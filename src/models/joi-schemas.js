@@ -1,6 +1,9 @@
 import Joi from "joi";
 
-export const IdSpec = Joi.alternatives().try(Joi.string().example("64832868a4afc1d1b9c633d9"), Joi.object().example("64832868a4afc1d1b9c633d9")).description("a valid ID");
+export const IdSpec = Joi.alternatives()
+  .try(Joi.string().example("64832868a4afc1d1b9c633d9"), Joi.object().example("64832868a4afc1d1b9c633d9"))
+  .description("a valid ID")
+  .label("Id");
 
 export const UserCredentialsSpec = Joi.object()
   .keys({
@@ -65,3 +68,25 @@ export const PlacemarkSpecPlus = PlacemarkSpecWithUser.keys({
 }).label("PlacemarkPlus");
 
 export const PlacemarkArray = Joi.array().items(PlacemarkSpecPlus).label("PlacemarkArray");
+
+export const ImageSpec = Joi.object({
+  image: Joi.any().meta({ swaggerType: "file" }),
+}).label("Image");
+
+export const ImageUrlSpec = Joi.object({
+  imageUrl: Joi.string().uri().required().example("https://someLink.com/image.jpg"),
+}).label("ImageUrl");
+
+export const StatisticTypeSpec = Joi.object({
+  type: Joi.string().required().example("user"),
+}).label("StatisticType");
+
+export const StatisticArray = Joi.array()
+  .items(
+    Joi.object({
+      _id: IdSpec,
+      count: Joi.number().required().example(1),
+      type: Joi.string().required().example("user"),
+    })
+  )
+  .label("StatisticArray");
